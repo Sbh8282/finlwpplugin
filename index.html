@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Application Forms</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .form-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .form-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 48px 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            border: none;
+            background-color: #fff;
+        }
+
+        .form-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .form-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #bfa14a 0%, #d4af37 100%);
+        }
+
+        .form-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 80px rgba(191, 161, 74, 0.3);
+        }
+
+        .form-card:hover .card-icon {
+            transform: scale(1.1) rotateY(10deg);
+        }
+
+        .form-card:hover .card-title {
+            color: #bfa14a;
+        }
+
+        .form-card:hover .card-button {
+            background: #bfa14a;
+            color: #fff;
+            transform: translateX(4px);
+        }
+
+        .card-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+            display: inline-block;
+            transition: transform 0.3s ease-out;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            transition: color 0.3s ease-out;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .card-description {
+            font-size: 15px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .card-features {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .card-feature {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #475569;
+            gap: 10px;
+        }
+
+        .card-feature::before {
+            content: '✓';
+            display: inline-block;
+            font-weight: bold;
+            color: #bfa14a;
+            font-size: 18px;
+        }
+
+        .card-accounts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .account-badge {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .account-badge.premium {
+            background: #fffbe6;
+            color: #bfa14a;
+        }
+
+        .card-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #1e293b;
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            width: 100%;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-button span {
+            transition: transform 0.3s ease-out;
+        }
+
+        .card-button:active {
+            transform: scale(0.98);
+        }
+
+        .footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .footer a {
+            color: #bfa14a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 36px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+
+            .form-card {
+                padding: 36px 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .form-selector {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .card-icon {
+                font-size: 48px;
+            }
+
+            .card-title {
+                font-size: 20px;
+            }
+
+            .card-description {
+                font-size: 14px;
+            }
+        }
+
+        /* Sparkle effect on hover */
+        .form-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 70%
+            );
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            pointer-events: none;
+        }
+
+        .form-card:hover::after {
+            animation: shine 0.6s ease-out;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Bank Account Application</h1>
+            <p>Select the account type that best fits your needs</p>
+        </div>
+
+        <div class="form-selector">
+            <!-- Personal Account Form Card -->
+            <div class="form-card" onclick="window.location.href='index-personal.html';">
+                <div class="card-icon">👤</div>
+                <div class="card-subtitle">Individual Account</div>
+                <h2 class="card-title">Personal Account</h2>
+                <p class="card-description">
+                    Apply for a personal bank account with flexible account types designed for individual investors and entrepreneurs.
+                </p>
+                <div class="card-features">
+                    <div class="card-feature">Personal account types</div>
+                    <div class="card-feature">Lower opening fees</div>
+                    <div class="card-feature">Individual verification</div>
+                    <div class="card-feature">Quick approval process</div>
+                </div>
+                <div class="card-accounts">
+                    <span class="account-badge">Savings</span>
+                    <span class="account-badge">Custody</span>
+                    <span class="account-badge premium">Numbered</span>
+                    <span class="account-badge">Crypto</span>
+                </div>
+                <div class="card-button">
+                    <span>Open Personal Form</span>
+                    <span>→</span>
+                </div>
+            </div>
+
+            <!-- Corporate Account Form Card -->
+            <div class="form-card" onclick="window.location.href='index-corporate.html';">
+                <div class="card-icon">🏢</div>
+                <div class="card-subtitle">Business Account</div>
+                <h2 class="card-title">Corporate Account</h2>
+                <p class="card-description">
+                    Apply for a corporate bank account with advanced features tailored for businesses and enterprises worldwide.
+                </p>
+                <div class="card-features">
+                    <div class="card-feature">Business account types</div>
+                    <div class="card-feature">Enhanced compliance</div>
+                    <div class="card-feature">Multi-signatory support</div>
+                    <div class="card-feature">Priority support</div>
+                </div>
+                <div class="card-accounts">
+                    <span class="account-badge">Checking</span>
+                    <span class="account-badge">Savings</span>
+                    <span class="account-badge premium">Merchant</span>
+                    <span class="account-badge premium">Trading</span>
+                </div>
+                <div class="card-button">
+                    <span>Open Corporate Form</span>
+                    <span>→</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Prominence Bank — Professional Banking Solutions</p>
+            <p style="margin-top: 8px; font-size: 12px;">
+                By proceeding, you agree to our <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

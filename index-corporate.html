@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corporate Bank Application</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+<div class="bank-form-container">
+
+<div class="account-type-tabs">
+<button class="tab" onclick="location.href='index-personal.html'">Personal Account</button>
+<button class="tab active" onclick="location.href='index-corporate.html'">Corporate Account</button>
+</div>
+
+<div class="steps">
+
+<div class="step active">Account Selection</div>
+<div class="step">Company Profile</div>
+<div class="step">Business Activity</div>
+<div class="step">Funding & Ownership</div>
+<div class="step">Fee Payment</div>
+<div class="step">Payment Instructions</div>
+<div class="step">Agreed & Attested</div>
+
+</div>
+
+<div class="progress-bar">
+<div class="progress"></div>
+</div>
+
+<form id="corporateForm">
+
+<div class="form-step active">
+<h2>Corporate Account Type</h2>
+<button class="next-btn" type="button">Continue</button>
+</div>
+
+<div class="form-step">
+<h2>Company Profile</h2>
+<input type="text" placeholder="Company Name">
+<input type="text" placeholder="Registration Number">
+
+<button class="prev-btn" type="button">Back</button>
+<button class="next-btn" type="button">Next</button>
+</div>
+
+<!-- repeat steps same structure -->
+
+</form>
+
+</div>
+
+<script src="assets/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Bank Application</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+<div class="bank-form-container">
+
+<!-- ACCOUNT TYPE TABS -->
+<div class="account-type-tabs">
+<button class="tab active" onclick="location.href='index-personal.html'">Personal Account</button>
+<button class="tab" onclick="location.href='index-corporate.html'">Corporate Account</button>
+</div>
+
+<!-- STEPS -->
+<div class="steps">
+
+<div class="step active">Account Selection</div>
+<div class="step">Personal Profile</div>
+<div class="step">Transfer Activity</div>
+<div class="step">Funding & Account</div>
+<div class="step">Fee Payment</div>
+<div class="step">Payment Instructions</div>
+<div class="step">Agreed & Attested</div>
+
+</div>
+
+<div class="progress-bar">
+<div class="progress"></div>
+</div>
+
+<form id="bankForm">
+
+<!-- STEP 1 -->
+<div class="form-step active">
+<h2>Select Account</h2>
+
+<label class="account-card">
+<input type="radio" name="account" checked>
+Savings Account
+</label>
+
+<label class="account-card">
+<input type="radio" name="account">
+Custody Account
+</label>
+
+<button type="button" class="next-btn">Continue</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="form-step">
+<h2>Personal Profile</h2>
+
+<input type="text" placeholder="Full Name">
+<input type="email" placeholder="Email">
+<input type="text" placeholder="Phone">
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 3 -->
+<div class="form-step">
+<h2>Transfer Activity</h2>
+
+<input type="text" placeholder="Expected Monthly Transfer">
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 4 -->
+<div class="form-step">
+<h2>Funding & Account</h2>
+
+<input type="text" placeholder="Source of Funds">
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 5 -->
+<div class="form-step">
+<h2>Fee Payment</h2>
+
+<p>Account opening fee information.</p>
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 6 -->
+<div class="form-step">
+<h2>Payment Instructions</h2>
+
+<p>Wire transfer details will appear here.</p>
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 7 -->
+<div class="form-step">
+<h2>Agreed & Attested</h2>
+
+<label>
+<input type="checkbox"> I agree to the terms
+</label>
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="submit">Submit Application</button>
+</div>
+</div>
+
+</form>
+
+</div>
+
+<script src="assets/script.js"></script>
+
+</body>
+</html>
