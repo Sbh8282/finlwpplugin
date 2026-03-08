@@ -1,0 +1,343 @@
+.bank-form-container{
+max-width:1400px; /* Wider form */
+margin:40px auto;
+padding:48px 32px; /* More padding */
+background:#fff;
+border-radius:18px;
+box-shadow:0 8px 32px rgba(30,41,59,0.10);
+font-family:'DM Sans', Inter, sans-serif;
+}
+@media (max-width: 600px) {
+	.bank-form-container {
+		max-width: 100%;
+		padding: 16px 8px;
+	}
+}
+
+.steps{
+display: flex;
+justify-content: center;
+flex-wrap: nowrap; /* Prevent wrapping */
+gap: 24px; /* More space between steps */
+margin-bottom: 24px;
+border-bottom: 1px solid #ececec;
+padding: 10px 0;
+overflow-x: auto;
+}
+
+.step{
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 14px;
+color: #6b7280;
+position: relative;
+background: #f3f4f6;
+border-radius: 8px; /* Normal box */
+text-align: center;
+font-weight: 600;
+margin-right: 12px;
+margin-bottom: 10px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+white-space: nowrap;
+padding: 12px 32px;
+min-width: 120px;
+height: auto;
+}
+.step {
+	flex: 1 1 120px;
+	min-width: 100px; /* Ensure minimum width for each step */
+	font-size: 14px;
+	padding: 0 8px 12px 0;
+}
+@media (max-width: 600px) {
+	.step {
+		font-size: 12px; /* Smaller font size for smaller screens */
+		margin-right: 8px; /* Adjust spacing for smaller screens */
+	}
+}
+
+.step.active{
+color:#1e293b; /* Black text for active step */
+background:#f9f9c5; /* Light yellow background for selected option */
+border:2px solid #f1c40f; /* Yellow border for selected option */
+box-shadow:0 4px 8px rgba(241, 196, 15, 0.4); /* Add shadow for better visibility */
+}
+
+.progress-bar{
+position:relative;
+height:4px; /* Increased height for better visibility */
+background:#e0e0e0;
+margin-bottom:24px;
+border-radius:2px;
+overflow:hidden;
+}
+
+.progress{
+height:100%;
+background:#007bff; /* Blue color for progress */
+width:0%; /* Dynamically updated */
+transition:width 0.3s ease-in-out; /* Smooth transition for progress */
+}
+
+.form-step{
+display:none;
+}
+
+.form-step {
+	display: none;
+}
+.form-step.active{
+display:block;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:32px;
+margin-bottom: 24px;
+}
+
+input,select,textarea{
+width:100%;
+padding:14px 8px;
+border:1px solid #ececec;
+border-radius:8px;
+margin-bottom:24px;
+font-size:15px;
+background:#fafbfc;
+color:#1e293b;
+transition:border-color .2s;
+}
+input:focus,select:focus,textarea:focus{
+border-color:#bfa14a;
+outline:none;
+}
+::placeholder{
+color:#bdbdbd;
+opacity:1;
+}
+
+.account-card{
+padding:18px;
+border-radius:8px;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+justify-content:flex-start;
+border:2px solid #ececec;
+padding:22px 24px;
+border-radius:12px;
+margin-bottom:0;
+margin-right:18px;
+min-width:220px;
+background:#fff;
+cursor:pointer;
+box-shadow:0 2px 8px rgba(30,41,59,0.03);
+transition:border-color .2s, box-shadow .2s;
+}
+.account-card input[type="radio"] {
+    display: none; /* Hide radio buttons */
+}
+.account-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 16px;
+	min-width: 220px;
+}
+@media (min-width: 600px) {
+	.form-step .account-card {
+		flex-direction: column;
+		align-items: flex-start;
+		margin-bottom: 16px;
+		min-width: 220px;
+		width: calc(25% - 24px); /* 4 cards per row */
+		display: inline-block;
+		vertical-align: top;
+	}
+}
+
+@media (max-width: 900px) {
+	.form-step .account-card {
+		width: 100%;
+		min-width: 0;
+		margin-right: 0;
+		margin-bottom: 16px;
+	}
+}
+@media (max-width: 600px) {
+	.form-step .account-card {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 16px;
+	}
+}
+
+.account-card.selected{
+border-color: #f1c40f;
+background: #f9f9c5;
+box-shadow: 0 4px 16px rgba(241,196,15,0.15);
+transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.account-card h3{
+margin:0 0 4px 0;
+font-size:17px;
+font-weight:600;
+color:#1e293b;
+}
+
+.account-card span{
+font-weight:600;
+color:#bfa14a;
+font-size:15px;
+margin-right:10px;
+accent-color:#bfa14a;
+margin:0 0 8px 0;
+color:#6b7280;
+font-size:14px;
+}
+
+/* tabs to switch between personal and corporate forms */
+.account-type-tabs{
+ display:flex;
+ justify-content:center;
+ gap:12px;
+ margin:0 auto 24px;
+ padding:4px;
+ background:#f3f4f6;
+ border-radius:999px;
+ width:-moz-fit-content;
+ width:fit-content;
+}
+.account-type-tabs .tab{
+ padding:8px 24px;
+ background:#f3f4f6;
+ color:#6b7280;
+ border:none;
+ border-radius:999px;
+ cursor:pointer;
+ font-weight:600;
+ box-shadow:0 2px 4px rgba(0,0,0,0.05);
+ transition:background .2s, box-shadow .2s, color .2s;
+}
+.account-type-tabs .tab.active{
+ background:#fff;
+ color:#1e293b;
+ box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* hide non-active form sections */
+.form-section{
+ display:none;
+}
+.form-section.active{
+ display:block;
+}
+}
+
+.nav-btns{
+display:flex;
+justify-content:flex-end;
+gap:16px;
+margin-top:32px;
+}
+
+button{
+padding:14px 32px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+font-weight:600;
+box-shadow:0 2px 8px rgba(30,41,59,0.08);
+transition:background .2s, color .2s, box-shadow .2s;
+}
+
+button, .next-btn {
+	width: 100%;
+	max-width: 220px;
+	margin: 16px auto 0 auto;
+	display: block;
+}
+@media (max-width: 600px) {
+	button, .next-btn {
+		max-width: 100%;
+		font-size: 14px;
+		padding: 10px 0;
+	}
+}
+
+.next-btn{
+background:#1e293b;
+color:#fff;
+border-radius:8px;
+box-shadow:0 4px 16px rgba(30,41,59,0.12);
+background:#bfa14a;
+color:#fff;
+}
+
+.prev-btn{
+background:#f3f4f6;
+color:#6b7280;
+border-radius:8px;
+background:#ececec;
+}
+
+.submit-btn{
+background:#1e293b;
+color:#fff;
+border-radius:8px;
+box-shadow:0 4px 16px rgba(30,41,59,0.12);
+background:#bfa14a;
+color:#fff;
+/* Tabs for account type */
+.account-tabs {
+	display: flex;
+	margin-bottom: 32px;
+	border-radius: 12px 12px 0 0;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(30,41,59,0.04);
+}
+.account-tab {
+	flex: 1;
+	padding: 18px 0;
+	text-align: center;
+	font-size: 17px;
+	font-weight: 600;
+	background: #1e293b;
+	color: #fff;
+	cursor: pointer;
+	border: none;
+	transition: background .2s, color .2s;
+}
+.account-tab.active {
+	background: #fff;
+	color: #1e293b;
+	border-bottom: 2px solid #bfa14a;
+}
+
+/* Save & Continue Later */
+.save-btn {
+	background: none;
+	color: #6b7280;
+	font-size: 15px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	border: none;
+	box-shadow: none;
+	cursor: pointer;
+}
+.save-btn:hover {
+	color: #bfa14a;
+}
+
+/* Info text */
+.info-text {
+	color: #bfa14a;
+	font-size: 13px;
+	margin-top: 18px;
+}

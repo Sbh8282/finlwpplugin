@@ -34,21 +34,117 @@
 
 <form id="corporateForm">
 
+<!-- STEP 1 -->
 <div class="form-step active">
 <h2>Corporate Account Type</h2>
-<button class="next-btn" type="button">Continue</button>
+
+<label class="account-card">
+<input type="radio" name="account" checked>
+Business Account
+</label>
+
+<label class="account-card">
+<input type="radio" name="account">
+Corporate Account
+</label>
+
+<button type="button" class="next-btn">Continue</button>
 </div>
 
+<!-- STEP 2 -->
 <div class="form-step">
 <h2>Company Profile</h2>
+
+<div class="grid">
 <input type="text" placeholder="Company Name">
 <input type="text" placeholder="Registration Number">
-
-<button class="prev-btn" type="button">Back</button>
-<button class="next-btn" type="button">Next</button>
 </div>
 
-<!-- repeat steps same structure -->
+<input type="text" placeholder="Company Address">
+<input type="email" placeholder="Company Email">
+<input type="text" placeholder="Phone Number">
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 3 -->
+<div class="form-step">
+<h2>Business Activity</h2>
+
+<input type="text" placeholder="Business Type">
+<input type="text" placeholder="Industry">
+<textarea placeholder="Business Description"></textarea>
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 4 -->
+<div class="form-step">
+<h2>Funding & Ownership</h2>
+
+<input type="text" placeholder="Source of Funds">
+<input type="text" placeholder="Beneficial Owner Name">
+<input type="text" placeholder="Ownership Percentage">
+<input type="text" placeholder="Expected Monthly Transfer">
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 5 -->
+<div class="form-step">
+<h2>Fee Payment</h2>
+
+<p>Account opening fee information and pricing terms.</p>
+<input type="text" placeholder="Payment Method">
+<input type="text" placeholder="Amount">
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 6 -->
+<div class="form-step">
+<h2>Payment Instructions</h2>
+
+<p>Wire transfer details will appear below.</p>
+<input type="text" placeholder="Bank Name">
+<input type="text" placeholder="SWIFT Code">
+<input type="text" placeholder="Account Number">
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="button" class="next-btn">Next</button>
+</div>
+</div>
+
+<!-- STEP 7 -->
+<div class="form-step">
+<h2>Agreed & Attested</h2>
+
+<label>
+<input type="checkbox"> I agree to the terms and conditions
+</label>
+
+<label>
+<input type="checkbox"> I certify that all information is accurate
+</label>
+
+<div class="buttons">
+<button type="button" class="prev-btn">Back</button>
+<button type="submit">Submit Application</button>
+</div>
+</div>
 
 </form>
 
