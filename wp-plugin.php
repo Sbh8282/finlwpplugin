@@ -7,6 +7,20 @@ Author: Your Name
 License: GPL v2 or later
 */
 
+// Enqueue scripts and styles
+function enqueue_bank_form_assets() {
+    wp_enqueue_script('bank-form-script', plugin_dir_url(__FILE__) . 'assets/script.js', array('jquery'), '1.0', true);
+    wp_enqueue_style('bank-form-style', plugin_dir_url(__FILE__) . 'assets/style.css', array(), '1.0');
+    
+    // Localize script with AJAX URL and nonce
+    wp_localize_script('bank-form-script', 'bankFormAjax', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'bankNonce' => wp_create_nonce('bank_form_nonce'),
+        'corporateNonce' => wp_create_nonce('corporate_form_nonce')
+    ));
+}
+add_action('wp_enqueue_scripts', 'enqueue_bank_form_assets');
+
 function create_bank_application_post_type() {
     register_post_type('bank_application',
         array(
@@ -37,117 +51,195 @@ function create_bank_application_post_type() {
 add_action('init', 'create_bank_application_post_type');
 
 function submit_bank_form() {
-    if (!wp_verify_nonce($_POST['_wpnonce'], 'bank_form_nonce')) {
-        wp_die('Security check failed');
-    }
+    check_ajax_referer('bank_form_nonce', '_wpnonce');
 
     $data = $_POST;
 
     $post_id = wp_insert_post(array(
-        'post_title' => 'Application from ' . sanitize_text_field($data['first_name']) . ' ' . sanitize_text_field($data['last_name']),
+        'post_title' => 'Personal Application from ' . sanitize_text_field($data['name'] ?? 'Guest'),
         'post_type' => 'bank_application',
         'post_status' => 'publish'
     ));
 
-    update_post_meta($post_id, 'account_type', sanitize_text_field($data['account']));
-    update_post_meta($post_id, 'first_name', sanitize_text_field($data['first_name']));
-    update_post_meta($post_id, 'last_name', sanitize_text_field($data['last_name']));
-    update_post_meta($post_id, 'date_of_birth', sanitize_text_field($data['date']));
-    update_post_meta($post_id, 'email', sanitize_email($data['email']));
-    update_post_meta($post_id, 'mobile', sanitize_text_field($data['mobile']));
-    update_post_meta($post_id, 'passport_issue_date', sanitize_text_field($data['passport_issue_date']));
-    update_post_meta($post_id, 'passport_expiry_date', sanitize_text_field($data['passport_expiry_date']));
-    update_post_meta($post_id, 'main_countries_out', sanitize_text_field($data['main_countries_out']));
-    update_post_meta($post_id, 'main_countries_in', sanitize_text_field($data['main_countries_in']));
-    update_post_meta($post_id, 'outgoing_transfers', sanitize_text_field($data['outgoing_transfers']));
-    update_post_meta($post_id, 'incoming_transfers', sanitize_text_field($data['incoming_transfers']));
-    update_post_meta($post_id, 'average_value', sanitize_text_field($data['average_value']));
-    update_post_meta($post_id, 'max_value', sanitize_text_field($data['max_value']));
-    update_post_meta($post_id, 'currency_funding', sanitize_text_field($data['currency_funding']));
-    update_post_meta($post_id, 'initial_funding_value', sanitize_text_field($data['initial_funding_value']));
-    update_post_meta($post_id, 'originating_bank_name', sanitize_text_field($data['originating_bank_name']));
-    update_post_meta($post_id, 'originating_bank_address', sanitize_text_field($data['originating_bank_address']));
-    update_post_meta($post_id, 'account_name', sanitize_text_field($data['account_name']));
-    update_post_meta($post_id, 'account_number', sanitize_text_field($data['account_number']));
-    update_post_meta($post_id, 'signatory_full_name', sanitize_text_field($data['signatory_full_name']));
-    update_post_meta($post_id, 'funds_generated_description', sanitize_textarea_field($data['funds_generated_description']));
-    update_post_meta($post_id, 'currency', sanitize_text_field($data['currency']));
-    update_post_meta($post_id, 'initial_deposit', sanitize_text_field($data['initial_deposit']));
-    update_post_meta($post_id, 'referral', sanitize_text_field($data['referral']));
-    update_post_meta($post_id, 'bank_name', sanitize_text_field($data['bank_name']));
-    update_post_meta($post_id, 'bank_address', sanitize_text_field($data['bank_address']));
-    update_post_meta($post_id, 'bank_swift_code', sanitize_text_field($data['bank_swift_code']));
-    update_post_meta($post_id, 'account_holder_name', sanitize_text_field($data['account_holder_name']));
-    update_post_meta($post_id, 'account_number', sanitize_text_field($data['account_number']));
-    update_post_meta($post_id, 'account_signatory_name', sanitize_text_field($data['account_signatory_name']));
-    update_post_meta($post_id, 'deposit_funds_origin', sanitize_textarea_field($data['deposit_funds_origin']));
-    update_post_meta($post_id, 'agree', isset($data['agree']) ? 1 : 0);
+    // Save all form data
+    foreach ($data as $key => $value) {
+        if ($key !== '_wpnonce' && $key !== 'action') {
+            if (is_array($value)) {
+                update_post_meta($post_id, sanitize_key($key), array_map('sanitize_text_field', $value));
+            } else {
+                update_post_meta($post_id, sanitize_key($key), sanitize_text_field($value));
+            }
+        }
+    }
 
-    wp_die('Application submitted successfully');
+    wp_send_json_success(array(
+        'message' => 'Personal application submitted successfully',
+        'post_id' => $post_id
+    ));
 }
-add_action('wp_ajax_submit_bank_form', 'submit_bank_form');
 add_action('wp_ajax_nopriv_submit_bank_form', 'submit_bank_form');
-add_action('wp_ajax_submit_corporate_form', 'submit_corporate_form');
-add_action('wp_ajax_nopriv_submit_corporate_form', 'submit_corporate_form');
+add_action('wp_ajax_submit_bank_form', 'submit_bank_form');
 
 function submit_corporate_form() {
-    if (!wp_verify_nonce($_POST['_wpnonce'], 'corporate_form_nonce')) {
-        wp_die('Security check failed');
-    }
+    check_ajax_referer('corporate_form_nonce', '_wpnonce');
 
     $data = $_POST;
 
     $post_id = wp_insert_post(array(
-        'post_title' => 'Corporate Application from ' . sanitize_text_field($data['company_name']),
+        'post_title' => 'Corporate Application from ' . sanitize_text_field($data['company_name'] ?? 'Company'),
         'post_type' => 'corporate_application',
         'post_status' => 'publish'
     ));
 
-    // Save company information
-    update_post_meta($post_id, 'account_type', sanitize_text_field($data['account_type']));
-    update_post_meta($post_id, 'company_name', sanitize_text_field($data['company_name']));
-    update_post_meta($post_id, 'trade_name', sanitize_text_field($data['trade_name']));
-    update_post_meta($post_id, 'registration_number', sanitize_text_field($data['registration_number']));
-    update_post_meta($post_id, 'tax_id', sanitize_text_field($data['tax_id']));
-    update_post_meta($post_id, 'country_incorporation', sanitize_text_field($data['country_incorporation']));
-    update_post_meta($post_id, 'incorporation_date', sanitize_text_field($data['incorporation_date']));
-    update_post_meta($post_id, 'business_address', sanitize_text_field($data['business_address']));
-    update_post_meta($post_id, 'city', sanitize_text_field($data['city']));
-    update_post_meta($post_id, 'state', sanitize_text_field($data['state']));
-    update_post_meta($post_id, 'postal_code', sanitize_text_field($data['postal_code']));
-    update_post_meta($post_id, 'registered_office', sanitize_text_field($data['registered_office']));
-    update_post_meta($post_id, 'business_phone', sanitize_text_field($data['business_phone']));
-    update_post_meta($post_id, 'business_email', sanitize_email($data['business_email']));
-    update_post_meta($post_id, 'company_website', sanitize_url($data['company_website']));
-    update_post_meta($post_id, 'business_type', sanitize_text_field($data['business_type']));
-    update_post_meta($post_id, 'business_description', sanitize_textarea_field($data['business_description']));
+    // Save all form data
+    foreach ($data as $key => $value) {
+        if ($key !== '_wpnonce' && $key !== 'action') {
+            if (is_array($value)) {
+                update_post_meta($post_id, sanitize_key($key), array_map('sanitize_text_field', $value));
+            } else {
+                update_post_meta($post_id, sanitize_key($key), sanitize_text_field($value));
+            }
+        }
+    }
 
-    // Financial information
-    update_post_meta($post_id, 'annual_revenue', sanitize_text_field($data['annual_revenue']));
-    update_post_meta($post_id, 'employee_count', sanitize_text_field($data['employee_count']));
-    update_post_meta($post_id, 'years_in_business', sanitize_text_field($data['years_in_business']));
-    update_post_meta($post_id, 'industry_sector', sanitize_text_field($data['industry_sector']));
+    wp_send_json_success(array(
+        'message' => 'Corporate application submitted successfully',
+        'post_id' => $post_id
+    ));
+}
+add_action('wp_ajax_nopriv_submit_corporate_form', 'submit_corporate_form');
+add_action('wp_ajax_submit_corporate_form', 'submit_corporate_form');
 
-    // Beneficial owners
-    update_post_meta($post_id, 'owner1_name', sanitize_text_field($data['owner1_name']));
-    update_post_meta($post_id, 'owner1_percentage', sanitize_text_field($data['owner1_percentage']));
-    update_post_meta($post_id, 'owner1_nationality', sanitize_text_field($data['owner1_nationality']));
-    update_post_meta($post_id, 'owner1_residence', sanitize_text_field($data['owner1_residence']));
-    update_post_meta($post_id, 'owner1_doc_type', sanitize_text_field($data['owner1_doc_type']));
-    update_post_meta($post_id, 'owner1_doc_number', sanitize_text_field($data['owner1_doc_number']));
+// Admin dashboard for personal applications
+function add_personal_app_admin_menu() {
+    add_menu_page(
+        'Personal Applications',
+        'Personal Apps',
+        'manage_options',
+        'personal-applications',
+        'personal_applications_page',
+        'dashicons-people',
+        30
+    );
+}
+add_action('admin_menu', 'add_personal_app_admin_menu');
 
-    update_post_meta($post_id, 'owner2_name', sanitize_text_field($data['owner2_name']));
-    update_post_meta($post_id, 'owner2_percentage', sanitize_text_field($data['owner2_percentage']));
-    update_post_meta($post_id, 'owner2_nationality', sanitize_text_field($data['owner2_nationality']));
-    update_post_meta($post_id, 'owner2_residence', sanitize_text_field($data['owner2_residence']));
-    update_post_meta($post_id, 'owner2_doc_type', sanitize_text_field($data['owner2_doc_type']));
-    update_post_meta($post_id, 'owner2_doc_number', sanitize_text_field($data['owner2_doc_number']));
+function personal_applications_page() {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
 
-    update_post_meta($post_id, 'source_of_funds', sanitize_textarea_field($data['source_of_funds']));
+    $args = array(
+        'post_type' => 'bank_application',
+        'posts_per_page' => 20
+    );
+    $query = new WP_Query($args);
+    ?>
+    <div class="wrap">
+        <h1>Personal Bank Applications</h1>
+        <table class="wp-list-table widefat fixed striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Account Type</th>
+                    <th>Date Submitted</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                while ($query->have_posts()) {
+                    $query->the_post();
+                    $post_id = get_the_ID();
+                    $name = get_post_meta($post_id, 'name', true) ?? 'N/A';
+                    $email = get_post_meta($post_id, 'email', true) ?? 'N/A';
+                    $account_type = get_post_meta($post_id, 'account', true) ?? 'N/A';
+                    $date = get_the_date();
+                    ?>
+                    <tr>
+                        <td><?php echo $post_id; ?></td>
+                        <td><?php echo esc_html($name); ?></td>
+                        <td><?php echo esc_html($email); ?></td>
+                        <td><?php echo esc_html($account_type); ?></td>
+                        <td><?php echo $date; ?></td>
+                        <td><a href="<?php echo admin_url('post.php?post=' . $post_id . '&action=edit'); ?>">View Details</a></td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
+}
 
-    // Authorized signatories
-    update_post_meta($post_id, 'signatory1_name', sanitize_text_field($data['signatory1_name']));
-    update_post_meta($post_id, 'signatory1_title', sanitize_text_field($data['signatory1_title']));
+// Admin dashboard for corporate applications
+function add_corporate_app_admin_menu() {
+    add_menu_page(
+        'Corporate Applications',
+        'Corporate Apps',
+        'manage_options',
+        'corporate-applications',
+        'corporate_applications_page',
+        'dashicons-building',
+        31
+    );
+}
+add_action('admin_menu', 'add_corporate_app_admin_menu');
+
+function corporate_applications_page() {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+
+    $args = array(
+        'post_type' => 'corporate_application',
+        'posts_per_page' => 20
+    );
+    $query = new WP_Query($args);
+    ?>
+    <div class="wrap">
+        <h1>Corporate Bank Applications</h1>
+        <table class="wp-list-table widefat fixed striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Company Name</th>
+                    <th>Email</th>
+                    <th>Account Type</th>
+                    <th>Date Submitted</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                while ($query->have_posts()) {
+                    $query->the_post();
+                    $post_id = get_the_ID();
+                    $company_name = get_post_meta($post_id, 'company_name', true) ?? 'N/A';
+                    $email = get_post_meta($post_id, 'business_email', true) ?? 'N/A';
+                    $account_type = get_post_meta($post_id, 'account_type', true) ?? 'N/A';
+                    $date = get_the_date();
+                    ?>
+                    <tr>
+                        <td><?php echo $post_id; ?></td>
+                        <td><?php echo esc_html($company_name); ?></td>
+                        <td><?php echo esc_html($email); ?></td>
+                        <td><?php echo esc_html($account_type); ?></td>
+                        <td><?php echo $date; ?></td>
+                        <td><a href="<?php echo admin_url('post.php?post=' . $post_id . '&action=edit'); ?>">View Details</a></td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
+}
+
     update_post_meta($post_id, 'signatory1_email', sanitize_email($data['signatory1_email']));
     update_post_meta($post_id, 'signatory1_phone', sanitize_text_field($data['signatory1_phone']));
     update_post_meta($post_id, 'signatory1_dob', sanitize_text_field($data['signatory1_dob']));

@@ -60,5 +60,55 @@ showStep(index);
 });
 });
 
+/* FORM SUBMISSION */
+const bankForm = document.getElementById('bankForm');
+const corporateForm = document.getElementById('corporateForm');
+
+if (bankForm) {
+    bankForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitForm('bank');
+    });
+}
+
+if (corporateForm) {
+    corporateForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitForm('corporate');
+    });
+}
+
+function submitForm(formType) {
+    const form = formType === 'bank' ? bankForm : corporateForm;
+    const formData = new FormData(form);
+    
+    // Add AJAX action and nonce
+    if (formType === 'bank') {
+        formData.append('action', 'submit_bank_form');
+        formData.append('_wpnonce', bankFormAjax.bankNonce);
+    } else {
+        formData.append('action', 'submit_corporate_form');
+        formData.append('_wpnonce', bankFormAjax.corporateNonce);
+    }
+
+    fetch(bankFormAjax.ajaxurl, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Application submitted successfully! Application ID: ' + data.data.post_id);
+            form.reset();
+            showStep(0);
+        } else {
+            alert('Error: ' + data.data);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error submitting form. Please try again.');
+    });
+}
 
 });
