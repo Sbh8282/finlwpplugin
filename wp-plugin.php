@@ -21,6 +21,7 @@ function enqueue_bank_form_assets() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_bank_form_assets');
 
+// Create custom post types
 function create_bank_application_post_type() {
     register_post_type('bank_application',
         array(
@@ -153,9 +154,9 @@ function personal_applications_page() {
                 while ($query->have_posts()) {
                     $query->the_post();
                     $post_id = get_the_ID();
-                    $name = get_post_meta($post_id, 'name', true) ?? 'N/A';
-                    $email = get_post_meta($post_id, 'email', true) ?? 'N/A';
-                    $account_type = get_post_meta($post_id, 'account', true) ?? 'N/A';
+                    $name = get_post_meta($post_id, 'name', true) ?: 'N/A';
+                    $email = get_post_meta($post_id, 'email', true) ?: 'N/A';
+                    $account_type = get_post_meta($post_id, 'account', true) ?: 'N/A';
                     $date = get_the_date();
                     ?>
                     <tr>
@@ -166,8 +167,9 @@ function personal_applications_page() {
                         <td><?php echo $date; ?></td>
                         <td><a href="<?php echo admin_url('post.php?post=' . $post_id . '&action=edit'); ?>">View Details</a></td>
                     </tr>
-                <?php
+                    <?php
                 }
+                wp_reset_postdata();
                 ?>
             </tbody>
         </table>
@@ -239,54 +241,6 @@ function corporate_applications_page() {
     </div>
     <?php
 }
-
-    update_post_meta($post_id, 'signatory1_email', sanitize_email($data['signatory1_email']));
-    update_post_meta($post_id, 'signatory1_phone', sanitize_text_field($data['signatory1_phone']));
-    update_post_meta($post_id, 'signatory1_dob', sanitize_text_field($data['signatory1_dob']));
-    update_post_meta($post_id, 'signatory1_nationality', sanitize_text_field($data['signatory1_nationality']));
-    update_post_meta($post_id, 'signatory1_id', sanitize_text_field($data['signatory1_id']));
-    update_post_meta($post_id, 'signatory1_id_country', sanitize_text_field($data['signatory1_id_country']));
-
-    wp_die('Corporate Application submitted successfully');
-
-    update_post_meta($post_id, 'signatory2_name', sanitize_text_field($data['signatory2_name']));
-    update_post_meta($post_id, 'signatory2_title', sanitize_text_field($data['signatory2_title']));
-    update_post_meta($post_id, 'signatory2_email', sanitize_email($data['signatory2_email']));
-    update_post_meta($post_id, 'signatory2_phone', sanitize_text_field($data['signatory2_phone']));
-
-    // Transfer activity
-    update_post_meta($post_id, 'main_dest_countries', sanitize_text_field($data['main_dest_countries']));
-    update_post_meta($post_id, 'monthly_transfer_frequency', sanitize_text_field($data['monthly_transfer_frequency']));
-    update_post_meta($post_id, 'transfer_avg_amount', sanitize_text_field($data['transfer_avg_amount']));
-    update_post_meta($post_id, 'transfer_max_amount', sanitize_text_field($data['transfer_max_amount']));
-    update_post_meta($post_id, 'main_source_countries', sanitize_text_field($data['main_source_countries']));
-    update_post_meta($post_id, 'incoming_monthly_frequency', sanitize_text_field($data['incoming_monthly_frequency']));
-    update_post_meta($post_id, 'incoming_avg_amount', sanitize_text_field($data['incoming_avg_amount']));
-    update_post_meta($post_id, 'incoming_max_amount', sanitize_text_field($data['incoming_max_amount']));
-    update_post_meta($post_id, 'related_parties_transfers', sanitize_text_field($data['related_parties_transfers']));
-    update_post_meta($post_id, 'counterparty_types', sanitize_text_field($data['counterparty_types']));
-    update_post_meta($post_id, 'transfer_purpose', sanitize_textarea_field($data['transfer_purpose']));
-
-    // Currency & account
-    update_post_meta($post_id, 'primary_currency', sanitize_text_field($data['primary_currency']));
-    update_post_meta($post_id, 'initial_deposit', sanitize_text_field($data['initial_deposit']));
-    update_post_meta($post_id, 'referral_source', sanitize_text_field($data['referral_source']));
-
-    // Banking information
-    update_post_meta($post_id, 'current_bank_name', sanitize_text_field($data['current_bank_name']));
-    update_post_meta($post_id, 'current_bank_country', sanitize_text_field($data['current_bank_country']));
-    update_post_meta($post_id, 'current_account_type', sanitize_text_field($data['current_account_type']));
-    update_post_meta($post_id, 'current_account_last4', sanitize_text_field($data['current_account_last4']));
-
-    // Compliance
-    update_post_meta($post_id, 'aml_kyc_info', sanitize_textarea_field($data['aml_kyc_info']));
-    update_post_meta($post_id, 'declaration', isset($data['declaration']) ? 1 : 0);
-    update_post_meta($post_id, 'aml_compliance', isset($data['aml_compliance']) ? 1 : 0);
-
-    wp_die('Corporate application submitted successfully');
-}
-add_action('wp_ajax_submit_corporate_form', 'submit_corporate_form');
-add_action('wp_ajax_nopriv_submit_corporate_form', 'submit_corporate_form');
 
 function bank_form_assets(){
 
