@@ -722,12 +722,190 @@ function bank_application_combined_form() {
             <button class="tab" id="corporate-tab" onclick="switchCombinedForm('corporate')">Corporate Account</button>
         </div>
 
-        <!-- Personal Form Section -->
+        <!-- Personal Form Content Only -->
         <div id="personal-form-section" class="form-section active">
-            <?php echo do_shortcode('[bank_application_form]'); ?>
+            <?php
+                ob_start();
+                ?>
+                <!-- Steps Navigation -->
+                <div class="steps">
+                    <div class="step active">Account Selection</div>
+                    <div class="step">Personal Profile</div>
+                    <div class="step">Transfer Activity</div>
+                    <div class="step">Funding & Account</div>
+                    <div class="step">Fee Payment</div>
+                    <div class="step">Payment Instructions</div>
+                    <div class="step">Agreed</div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+
+                <form id="bankForm">
+                    <?php wp_nonce_field('bank_form_nonce'); ?>
+                    <input type="hidden" name="action" value="submit_bank_form">
+
+                    <!-- STEP 1: Account Selection -->
+                    <div class="form-step active">
+                        <h2>Apply for a New Personal Bank Account</h2>
+
+                        <div class="account-card selected">
+                            <input type="radio" name="account" value="Savings" checked>
+                            <div>
+                                <h3>Savings Account</h3>
+                                <p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+                            </div>
+                            <span>€25,000</span>
+                        </div>
+
+                        <div class="account-card">
+                            <input type="radio" name="account" value="Custody">
+                            <div>
+                                <h3>Custody Account</h3>
+                                <p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+                            </div>
+                            <span>€25,000</span>
+                        </div>
+
+                        <div class="account-card">
+                            <input type="radio" name="account" value="Numbered">
+                            <div>
+                                <h3>Numbered Account</h3>
+                                <p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+                            </div>
+                            <span>€50,000</span>
+                        </div>
+
+                        <div class="account-card">
+                            <input type="radio" name="account" value="Cryptocurrency">
+                            <div>
+                                <h3>Cryptocurrency Account</h3>
+                                <p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+                            </div>
+                            <span>€25,000</span>
+                        </div>
+
+                        <button type="button" class="next-btn">Continue</button>
+                    </div>
+
+                    <!-- STEP 2: Personal Profile -->
+                    <div class="form-step">
+                        <h2>Personal Profile</h2>
+
+                        <div class="grid">
+                            <input type="text" placeholder="First Name" name="first_name">
+                            <input type="text" placeholder="Last Name" name="last_name">
+                            <input type="text" placeholder="Date of birth" name="date">
+                            <input type="email" placeholder="Email" name="email">
+                            <input type="text" placeholder="Mobile" name="mobile">
+                            <input type="text" placeholder="Passport/ID date of issue" name="passport_issue_date">
+                            <input type="text" placeholder="Passport/ID Expiration date" name="passport_expiry_date">
+                        </div>
+
+                        <div class="nav-btns">
+                            <button type="button" class="prev-btn">Previous</button>
+                            <button type="button" class="next-btn">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Transfer Activity -->
+                    <div class="form-step">
+                        <h2>Expected Transfer Activity</h2>
+
+                        <input type="text" placeholder="Main countries to which you will make transfers" name="main_countries_out">
+                        <input type="text" placeholder="Main countries from which you will receive transfers" name="main_countries_in">
+                        <input type="text" placeholder="Estimated number of outgoing transfers per month" name="outgoing_transfers">
+                        <input type="text" placeholder="Estimated number of incoming transfers per month" name="incoming_transfers">
+                        <input type="text" placeholder="Average value for each transfer" name="average_value">
+                        <input type="text" placeholder="Maximum value of each transfer" name="max_value">
+                        <input type="text" placeholder="Currency of initial funding" name="currency_funding">
+
+                        <h3>Source of initial funding</h3>
+                        <input type="text" placeholder="Value of Initial Funding" name="initial_funding_value">
+                        <input type="text" placeholder="Originating Bank Name" name="originating_bank_name">
+                        <input type="text" placeholder="Originating Bank Address" name="originating_bank_address">
+                        <input type="text" placeholder="Account Name" name="account_name">
+                        <input type="text" placeholder="Account Number" name="account_number">
+                        <input type="text" placeholder="Signatory Full Name" name="signatory_full_name">
+                        <textarea placeholder="Describe precisely how these funds were generated" name="funds_generated_description"></textarea>
+
+                        <div class="nav-btns">
+                            <button type="button" class="prev-btn">Previous</button>
+                            <button type="button" class="next-btn">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: Bank Account & Referral -->
+                    <div class="form-step">
+                        <h2>Bank Account & Referral</h2>
+
+                        <select name="currency">
+                            <option>Select Currency</option>
+                            <option>EUR</option>
+                            <option>USD</option>
+                            <option>GBP</option>
+                        </select>
+
+                        <input type="number" placeholder="Initial Deposit" name="initial_deposit">
+                        <input type="text" placeholder="How did you hear about us?" name="referral">
+
+                        <div class="nav-btns">
+                            <button type="button" class="prev-btn">Previous</button>
+                            <button type="button" class="next-btn">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 5: Fee Payment Information -->
+                    <div class="form-step">
+                        <h2>Fee Payment Banking Information</h2>
+
+                        <input type="text" placeholder="Bank Name" name="bank_name">
+                        <input type="text" placeholder="Bank Address" name="bank_address">
+                        <input type="text" placeholder="Bank Swift Code" name="bank_swift_code">
+                        <input type="text" placeholder="Account Holder Name" name="account_holder_name">
+                        <input type="text" placeholder="Account Number" name="account_number">
+                        <input type="text" placeholder="Account Signatory Name" name="account_signatory_name">
+                        <textarea placeholder="Describe the Origin of Deposit Funds" name="deposit_funds_origin"></textarea>
+
+                        <div class="nav-btns">
+                            <button type="button" class="prev-btn">Previous</button>
+                            <button type="button" class="next-btn">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 6: Payment Instructions -->
+                    <div class="form-step">
+                        <h2>Payment Instructions</h2>
+
+                        <p style="font-style:italic;color:#6b7280;margin-bottom:18px;">Wire transfer details will appear here.</p>
+
+                        <div class="nav-btns">
+                            <button type="button" class="prev-btn">Previous</button>
+                            <button type="button" class="next-btn">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 7: Agreement -->
+                    <div class="form-step">
+                        <h2>Agreement</h2>
+
+                        <label class="agree">
+                            <input type="checkbox" name="agree"> I confirm the information provided is correct.
+                        </label>
+
+                        <div class="nav-btns">
+                            <button type="button" class="prev-btn">Previous</button>
+                            <button type="submit" class="submit-btn">Submit Application</button>
+                        </div>
+                    </div>
+                </form>
+            <?php
+            echo ob_get_clean();
+            ?>
         </div>
 
-        <!-- Corporate Form Section -->
+        <!-- Corporate Form Content Only -->
         <div id="corporate-form-section" class="form-section" style="display:none;">
             <?php echo do_shortcode('[bank_corporate_form]'); ?>
         </div>
