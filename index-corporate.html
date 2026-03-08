@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Corporate Bank Application</title>
-<link rel="stylesheet" href="assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Corporate Application Form</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
-
 <body>
-
 <div class="bank-form-container">
 
-<div class="account-type-tabs">
-<button class="tab" onclick="location.href='index-personal.html'">Personal Account</button>
-<button class="tab active" onclick="location.href='index-corporate.html'">Corporate Account</button>
-</div>
+    <!-- tabs switching personal / corporate (static preview) -->
+    <div class="account-type-tabs">
+        <button type="button" class="tab" onclick="switchForm('personal')">Personal Account</button>
+        <button type="button" class="tab active" onclick="switchForm('corporate')">Corporate Account</button>
+    </div>
 
+<!-- Steps Navigation -->
 <div class="steps">
-
 <div class="step active">Account Selection</div>
 <div class="step">Company Profile</div>
-<div class="step">Business Activity</div>
-<div class="step">Funding & Ownership</div>
-<div class="step">Fee Payment</div>
+<div class="step">Business Details</div>
+<div class="step">Signatory Information</div>
+<div class="step">Transfer Activity</div>
 <div class="step">Payment Instructions</div>
-<div class="step">Agreed & Attested</div>
-
+<div class="step">Agreed and Attested</div>
 </div>
 
 <div class="progress-bar">
@@ -34,123 +32,490 @@
 
 <form id="corporateForm">
 
-<!-- STEP 1 -->
+<!-- STEP 1: Account Selection -->
 <div class="form-step active">
-<h2>Corporate Account Type</h2>
+<h2>Select a Corporate Bank Account Type</h2>
 
-<label class="account-card">
-<input type="radio" name="account" checked>
-Business Account
-</label>
+<div class="account-card selected">
+<input type="radio" name="account_type" value="Business_Checking" checked>
+<div>
+<h3>Business Checking Account</h3>
+<p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+</div>
+<span>€50,000</span>
+</div>
 
-<label class="account-card">
-<input type="radio" name="account">
-Corporate Account
-</label>
+<div class="account-card">
+<input type="radio" name="account_type" value="Business_Savings">
+<div>
+<h3>Business Savings Account</h3>
+<p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+</div>
+<span>€50,000</span>
+</div>
+
+<div class="account-card">
+<input type="radio" name="account_type" value="Merchant_Services">
+<div>
+<h3>Merchant Services Account</h3>
+<p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+</div>
+<span>€75,000</span>
+</div>
+
+<div class="account-card">
+<input type="radio" name="account_type" value="Trading_Account">
+<div>
+<h3>Trading/Investment Account</h3>
+<p>Account Opening Fee (Onboarding & Compliance Processing Fee)</p>
+</div>
+<span>€100,000</span>
+</div>
 
 <button type="button" class="next-btn">Continue</button>
 </div>
 
-<!-- STEP 2 -->
+<!-- STEP 2: Payment Instructions -->
 <div class="form-step">
-<h2>Company Profile</h2>
+<h2>Account Opening Fee — Payment Instructions</h2>
+<p style="font-style:italic;color:#6b7280;margin-bottom:18px;">Applicable to all corporate account types listed below.</p>
+<div style="margin-bottom:18px;">
+<strong>Account Opening Fee (Onboarding & Compliance Processing Fee)</strong><br>
+<span style="color:#6b7280;font-size:15px;">Payment of the Account Opening Fee does not guarantee approval or account opening.</span>
+<ul style="margin-top:12px;margin-bottom:12px;">
+<li>€50,000 — Business Checking Account</li>
+<li>€50,000 — Business Savings Account</li>
+<li>€75,000 — Merchant Services Account</li>
+<li>€100,000 — Trading/Investment Account</li>
+</ul>
+</div>
+<div style="margin-bottom:18px;">
+<strong>REFUND POLICY (NO EXCEPTIONS)</strong>
+<p style="color:#6b7280;font-size:15px;">If the application is declined and no account is opened, the Account Opening Fee will be refunded in full. Refunds are issued to the original sender (same payment route) <strong>within ten (10) business days</strong> after the application is formally declined in the Bank's records.<br><br>If the application is approved and an account is opened, the Account Opening Fee is deemed fully earned upon account opening and is <strong>non-refundable</strong>, as it covers completed onboarding, administrative coordination, and compliance processing services.</p>
+</div>
+<div style="margin-bottom:18px;">
+<strong>PAYMENT OPTION 1: INTERNATIONAL WIRE (SWIFT)</strong>
+<ul style="margin-top:8px;margin-bottom:8px;">
+<li><strong>EURO (EUR) CURRENCY</strong><br>
+<span style="color:#6b7280;font-size:15px;">
+Bank Name: Wise Europe<br>
+Bank Address: Rue du Trône 100, 3rd floor. Brussels. 1050. Belgium<br>
+SWIFT Code: TRWIBEB1XXX<br>
+Account Name: PROMINENCE CLIENT MANAGEMENT<br>
+Account Number/IBAN: BE31905177979455<br>
+Payment Reference / Memo <span style="color:#bfa14a;font-weight:600;">(REQUIRED)</span>: Application ID: 69aa9430 | Onboarding and Compliance Processing Fee
+</span>
+</li>
+<li><strong>USD (US) CURRENCY</strong><br>
+<span style="color:#6b7280;font-size:15px;">
+Bank Name: Wise US Inc.<br>
+Bank Address: 108 W 13th St, Wilmington, DE, 19801, United States<br>
+SWIFT Code: TRWIUS35XXX<br>
+Account Name: PROMINENCE CLIENT MANAGEMENT<br>
+Account Number: 205414015428310<br>
+Payment Reference / Memo <span style="color:#bfa14a;font-weight:600;">(REQUIRED)</span>: Application ID: 69aa9430 | Onboarding and Compliance Processing Fee
+</span>
+</li>
+</ul>
+</div>
+<div style="margin-bottom:18px;">
+<strong>PAYMENT OPTION 2: CRYPTOCURRENCY (USDT TRC20)</strong>
+<ul style="margin-top:8px;margin-bottom:8px;">
+<li><strong>USDT Wallet Address (TRC20):</strong> TPYjsZk3bZRZAVhBoRZcdyZkPq9NN6S6Y</li>
+<li style="color:#6b7280;font-size:15px;">To validate a crypto payment, you must provide (i) TXID/transaction hash, (ii) amount sent, (iii) sending wallet address, and (iv) timestamp and supporting screenshot (if available).</li>
+</ul>
+</div>
+<input type="file" name="payment_proof" accept="image/*">
+<label>Insert Full Color Photo of your Offshore Account Opening Fees Payment</label>
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
+</div>
+</div>
+
+<!-- STEP 3: Company Profile -->
+<div class="form-step">
+<h2>Company Profile Information</h2>
 
 <div class="grid">
-<input type="text" placeholder="Company Name">
-<input type="text" placeholder="Registration Number">
+<input type="text" placeholder="Legal Company Name *" name="company_name" required>
+<input type="text" placeholder="Trade Name / DBA *" name="trade_name" required>
 </div>
 
-<input type="text" placeholder="Company Address">
-<input type="email" placeholder="Company Email">
-<input type="text" placeholder="Phone Number">
+<div class="grid">
+<input type="text" placeholder="Company Registration Number *" name="registration_number" required>
+<input type="text" placeholder="Tax Identification Number (TIN) *" name="tax_id" required>
+</div>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
+<div class="grid">
+<input type="text" placeholder="Country of Incorporation *" name="country_incorporation" required>
+<input type="text" placeholder="Date of Incorporation (DD/MM/YYYY) *" name="incorporation_date" required>
+</div>
+
+<input type="text" placeholder="Business Address *" name="business_address" required>
+
+<div class="grid">
+<input type="text" placeholder="City *" name="city" required>
+<input type="text" placeholder="State/Province" name="state">
+<input type="text" placeholder="Postal Code *" name="postal_code" required>
+</div>
+
+<input type="text" placeholder="Registered Office Address (if different) *" name="registered_office" required>
+
+<div class="grid">
+<input type="text" placeholder="Main Business Phone *" name="business_phone" required>
+<input type="email" placeholder="Business Email *" name="business_email" required>
+</div>
+
+<div class="grid">
+<input type="text" placeholder="Company Website" name="company_website">
+<select name="business_type" required>
+<option value="">Select Business Type *</option>
+<option value="Corporation">Corporation</option>
+<option value="LLC">Limited Liability Company (LLC)</option>
+<option value="Partnership">Partnership</option>
+<option value="Sole Proprietorship">Sole Proprietorship</option>
+<option value="Non-Profit">Non-Profit Organization</option>
+<option value="Trust">Trust</option>
+<option value="Foundation">Foundation</option>
+<option value="Other">Other</option>
+</select>
+</div>
+
+<textarea placeholder="Description of Business Activities *" name="business_description" required></textarea>
+
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
 </div>
 </div>
 
-<!-- STEP 3 -->
+<!-- STEP 4: Business Details & Financial Information -->
 <div class="form-step">
-<h2>Business Activity</h2>
+<h2>Business Details & Financial Information</h2>
 
-<input type="text" placeholder="Business Type">
-<input type="text" placeholder="Industry">
-<textarea placeholder="Business Description"></textarea>
+<h3>Annual Financial Information</h3>
+<div class="grid">
+<input type="text" placeholder="Annual Revenue (approximate) *" name="annual_revenue" required>
+<input type="text" placeholder="Number of Employees *" name="employee_count" required>
+</div>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
+<div class="grid">
+<input type="text" placeholder="Years in Business *" name="years_in_business" required>
+<input type="text" placeholder="Main Industry Sector *" name="industry_sector" required>
+</div>
+
+<h3>Primary Beneficial Owners (Ownership 25%+)</h3>
+<h4>Owner 1</h4>
+<div class="grid">
+<input type="text" placeholder="Owner Full Name *" name="owner1_name" required>
+<input type="text" placeholder="Ownership Percentage *" name="owner1_percentage" required>
+</div>
+
+<div class="grid">
+<input type="text" placeholder="Nationality *" name="owner1_nationality" required>
+<input type="text" placeholder="Country of Residence *" name="owner1_residence" required>
+</div>
+
+<input type="text" placeholder="Document Type (Passport/ID) *" name="owner1_doc_type" required>
+<input type="text" placeholder="Document Number *" name="owner1_doc_number" required>
+
+<h4>Owner 2 (if applicable)</h4>
+<div class="grid">
+<input type="text" placeholder="Owner Full Name" name="owner2_name">
+<input type="text" placeholder="Ownership Percentage" name="owner2_percentage">
+</div>
+
+<div class="grid">
+<input type="text" placeholder="Nationality" name="owner2_nationality">
+<input type="text" placeholder="Country of Residence" name="owner2_residence">
+</div>
+
+<input type="text" placeholder="Document Type (Passport/ID)" name="owner2_doc_type">
+<input type="text" placeholder="Document Number" name="owner2_doc_number">
+
+<h3>Source of Funds</h3>
+<textarea placeholder="Describe the primary sources of company funds *" name="source_of_funds" required></textarea>
+
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
 </div>
 </div>
 
-<!-- STEP 4 -->
+<!-- STEP 5: Authorized Signatories -->
 <div class="form-step">
-<h2>Funding & Ownership</h2>
+<h2>Authorized Signatories & Officers</h2>
 
-<input type="text" placeholder="Source of Funds">
-<input type="text" placeholder="Beneficial Owner Name">
-<input type="text" placeholder="Ownership Percentage">
-<input type="text" placeholder="Expected Monthly Transfer">
+<h3>Primary Authorized Signatory</h3>
+<div class="grid">
+<input type="text" placeholder="Full Name *" name="signatory1_name" required>
+<input type="text" placeholder="Title/Position *" name="signatory1_title" required>
+</div>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
+<div class="grid">
+<input type="email" placeholder="Email Address *" name="signatory1_email" required>
+<input type="tel" placeholder="Phone Number *" name="signatory1_phone" required>
+</div>
+
+<div class="grid">
+<input type="text" placeholder="Date of Birth (DD/MM/YYYY) *" name="signatory1_dob" required>
+<input type="text" placeholder="Nationality *" name="signatory1_nationality" required>
+</div>
+
+<input type="text" placeholder="Passport/ID Number *" name="signatory1_id" required>
+<input type="text" placeholder="Country of Issue *" name="signatory1_id_country" required>
+
+<input type="file" name="signatory1_photo" accept="image/*">
+<label>Full Color Photo of Authorized Signatory 1 *</label>
+
+<h3>Secondary Authorized Signatory</h3>
+<div class="grid">
+<input type="text" placeholder="Full Name" name="signatory2_name">
+<input type="text" placeholder="Title/Position" name="signatory2_title">
+</div>
+
+<div class="grid">
+<input type="email" placeholder="Email Address" name="signatory2_email">
+<input type="tel" placeholder="Phone Number" name="signatory2_phone">
+</div>
+
+<div class="grid">
+<input type="text" placeholder="Date of Birth (DD/MM/YYYY)" name="signatory2_dob">
+<input type="text" placeholder="Nationality" name="signatory2_nationality">
+</div>
+
+<input type="text" placeholder="Passport/ID Number" name="signatory2_id">
+<input type="text" placeholder="Country of Issue" name="signatory2_id_country">
+
+<input type="file" name="signatory2_photo" accept="image/*">
+<label>Full Color Photo of Authorized Signatory 2</label>
+
+<h3>Beneficial Owner Detail (if not already listed)</h3>
+<input type="text" placeholder="Full Name" name="beneficial_owner_name">
+<input type="text" placeholder="Beneficial Ownership %" name="beneficial_ownership_percent">
+<input type="text" placeholder="Country of Residence" name="beneficial_owner_residence">
+
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
 </div>
 </div>
 
-<!-- STEP 5 -->
+<!-- STEP 6: Transfer Activity -->
 <div class="form-step">
-<h2>Fee Payment</h2>
+<h2>Expected Transfer Activity</h2>
 
-<p>Account opening fee information and pricing terms.</p>
-<input type="text" placeholder="Payment Method">
-<input type="text" placeholder="Amount">
+<h3>Outgoing Transfers</h3>
+<div class="grid">
+<input type="text" placeholder="Main destination countries *" name="main_dest_countries" required>
+<input type="text" placeholder="Estimated monthly frequency *" name="monthly_transfer_frequency" required>
+</div>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
+<div class="grid">
+<input type="text" placeholder="Average amount per transfer (in EUR) *" name="transfer_avg_amount" required>
+<input type="text" placeholder="Maximum transfer amount (in EUR) *" name="transfer_max_amount" required>
+</div>
+
+<h3>Incoming Transfers</h3>
+<div class="grid">
+<input type="text" placeholder="Main source countries *" name="main_source_countries" required>
+<input type="text" placeholder="Estimated monthly frequency *" name="incoming_monthly_frequency" required>
+</div>
+
+<div class="grid">
+<input type="text" placeholder="Average incoming amount (in EUR) *" name="incoming_avg_amount" required>
+<input type="text" placeholder="Maximum incoming amount (in EUR) *" name="incoming_max_amount" required>
+</div>
+
+<h3>Transfer Counterparties</h3>
+<div class="grid">
+<input type="text" placeholder="Are transfers to/from related parties? *" name="related_parties_transfers" required>
+<input type="text" placeholder="Types of transfer counterparties *" name="counterparty_types" required>
+</div>
+
+<textarea placeholder="Describe business purpose of international transfers *" name="transfer_purpose" required></textarea>
+
+<h3>Currency & Account Preferences</h3>
+<div class="grid">
+<select name="primary_currency" required>
+<option value="">Select Primary Currency *</option>
+<option value="EUR">EUR (Euro)</option>
+<option value="USD">USD (US Dollar)</option>
+<option value="GBP">GBP (British Pound)</option>
+<option value="CHF">CHF (Swiss Franc)</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" placeholder="Initial Deposit Amount *" name="initial_deposit" required>
+</div>
+
+<input type="text" placeholder="How did you hear about us?" name="referral_source">
+
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
 </div>
 </div>
 
-<!-- STEP 6 -->
+<!-- STEP 7: Bank Information & Documentation -->
 <div class="form-step">
-<h2>Payment Instructions</h2>
+<h2>Bank Account & Financial Information</h2>
 
-<p>Wire transfer details will appear below.</p>
-<input type="text" placeholder="Bank Name">
-<input type="text" placeholder="SWIFT Code">
-<input type="text" placeholder="Account Number">
+<h3>Current Banking Relationship</h3>
+<div class="grid">
+<input type="text" placeholder="Primary Bank Name *" name="current_bank_name" required>
+<input type="text" placeholder="Country *" name="current_bank_country" required>
+</div>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="button" class="next-btn">Next</button>
+<div class="grid">
+<input type="text" placeholder="Account Type *" name="current_account_type" required>
+<input type="text" placeholder="Account Number (last 4 digits) *" name="current_account_last4" required>
+</div>
+
+<h3>Financial Documents to Upload</h3>
+<input type="file" name="corporate_registration" accept=".pdf,.doc,.docx,.jpg,.png">
+<label>Certificate of Incorporation / Articles of Association *</label>
+
+<input type="file" name="board_resolution" accept=".pdf,.doc,.docx,.jpg,.png">
+<label>Board Resolution Authorizing Account Opening *</label>
+
+<input type="file" name="beneficial_owners_cert" accept=".pdf,.doc,.docx,.jpg,.png">
+<label>Certificate of Beneficial Owners *</label>
+
+<input type="file" name="registration_proof" accept=".pdf,.doc,.docx,.jpg,.png">
+<label>Proof of Business Registration *</label>
+
+<input type="file" name="passport_signatory" accept="image/*">
+<label>Passports/IDs of All Authorized Signatories *</label>
+
+<input type="file" name="address_proof" accept=".pdf,.doc,.docx,.jpg,.png">
+<label>Proof of Business Address (Utility Bill or Registry Extract) *</label>
+
+<h3>AML/KYC Information</h3>
+<textarea placeholder="Any additional relevant compliance information" name="aml_kyc_info"></textarea>
+
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="button" class="next-btn">Continue</button>
 </div>
 </div>
 
-<!-- STEP 7 -->
+<!-- STEP 8: Agreement & Declaration -->
 <div class="form-step">
-<h2>Agreed & Attested</h2>
+<h2>Agreement and Declaration</h2>
 
-<label>
-<input type="checkbox"> I agree to the terms and conditions
-</label>
+<div class="info-text" style="background:#f5f7fa;padding:18px;border-radius:8px;margin-bottom:18px;border:1px solid #dbeafe;">
+<strong>Third-Party Onboarding and Payment Notice</strong><br>
+Please be advised that Prominence Bank may utilize third-party compliance and onboarding services. All payments for account opening fees are non-refundable and cover the cost of enhanced due diligence. Approval is not guaranteed and depends on successful compliance clearance.
+</div>
 
-<label>
-<input type="checkbox"> I certify that all information is accurate
-</label>
+<div class="info-text" style="background:#fffbe6;padding:18px;border-radius:8px;margin-bottom:18px;border:1px solid #ffe4a1;">
+<strong>Account Opening Fee – Payment Instructions</strong><br>
+The specified Account Opening Fee is due immediately upon submission of this application to initiate the onboarding process.<br>
+<span style="font-weight:600;">Methods:</span> SWIFT/SEPA Transfer, BTC, or USDT (ERC20).<br>
+<span style="font-weight:600;">Notification:</span> Instructions will be sent to your registered email.
+</div>
 
-<div class="buttons">
-<button type="button" class="prev-btn">Back</button>
-<button type="submit">Submit Application</button>
+<div style="background:#fff;padding:18px;border-radius:8px;border:1px solid #ececec;margin-bottom:18px;">
+<input type="checkbox" name="declaration" id="declaration" required>
+<label for="declaration" style="font-weight:600;">I/we hereby declare that the information given in this application form is true and correct. I/we declare that all funds deposited in the account will be derived from legal sources. I/we have no knowledge of any criminal investigation relating to the company or its officers. I/we agree to be bound by the terms and conditions of Prominence Bank. <span style="color:#bfa14a;">Required</span></label>
+</div>
+
+<div style="background:#fff;padding:18px;border-radius:8px;border:1px solid #ececec;margin-bottom:18px;">
+<input type="checkbox" name="aml_compliance" id="aml_compliance" required>
+<label for="aml_compliance" style="font-weight:600;">I/we acknowledge that I/we have read and understood the AML/KYC compliance requirements and agree to provide any additional information requested. <span style="color:#bfa14a;">Required</span></label>
+</div>
+
+<div class="nav-btns">
+<button type="button" class="prev-btn">Previous</button>
+<button type="submit" class="submit-btn">Submit Application</button>
 </div>
 </div>
 
 </form>
-
 </div>
 
-<script src="assets/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+jQuery(function($){
+    $('.account-card').click(function() {
+        $('.account-card').removeClass('selected');
+        $(this).addClass('selected');
+        $(this).find('input[type="radio"]').prop('checked', true);
+    });
 
+    let step = 0;
+    const steps = $(".form-step");
+    const navSteps = $(".step");
+    const progress = $(".progress");
+
+    function showStep(i){
+        steps.removeClass("active");
+        steps.eq(i).addClass("active");
+        navSteps.removeClass("active");
+        navSteps.eq(i).addClass("active");
+        let percent = ((i+1)/steps.length)*100;
+        progress.css("width",percent+"%");
+        window.scrollTo(0, 0);
+    }
+
+    $(".next-btn").click(function(){
+        if(step < steps.length-1){
+            step++;
+            showStep(step);
+        }
+    });
+
+    $(".prev-btn").click(function(){
+        if(step > 0){
+            step--;
+            showStep(step);
+        }
+    });
+
+    $(".submit-btn").click(function(e){
+        e.preventDefault();
+        var formData = new FormData($('#corporateForm')[0]);
+        formData.append('action', 'submit_corporate_form');
+        
+        $.ajax({
+            type: 'POST',
+            url: 'ajax_object.ajaxurl',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response){
+                alert('Application submitted successfully!');
+                $('#corporateForm')[0].reset();
+                window.location.href = '/thank-you';
+            },
+            error: function(){
+                alert('Error submitting form. Please try again.');
+            }
+        });
+    });
+});
+
+function switchForm(formType) {
+    localStorage.setItem('selectedForm', formType);
+    if (formType === 'personal') {
+        window.location.href = 'index-personal.html';
+    } else {
+        window.location.href = 'index-corporate.html';
+    }
+}
+
+// Set active tab on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedForm = localStorage.getItem('selectedForm') || 'corporate';
+    const tabs = document.querySelectorAll('.account-type-tabs .tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    if (selectedForm === 'personal') {
+        tabs[0].classList.add('active');
+    } else {
+        tabs[1].classList.add('active');
+    }
+});
+</script>
 </body>
 </html>

@@ -13,8 +13,8 @@
 
 <!-- ACCOUNT TYPE TABS -->
 <div class="account-type-tabs">
-<button class="tab active" onclick="location.href='index-personal.html'">Personal Account</button>
-<button class="tab" onclick="location.href='index-corporate.html'">Corporate Account</button>
+<button class="tab active" onclick="switchForm('personal')">Personal Account</button>
+<button class="tab" onclick="switchForm('corporate')">Corporate Account</button>
 </div>
 
 <!-- STEPS -->
@@ -133,6 +133,28 @@ Custody Account
 
 </div>
 
+<script>
+function switchForm(formType) {
+    localStorage.setItem('selectedForm', formType);
+    if (formType === 'corporate') {
+        window.location.href = 'index-corporate.html';
+    } else {
+        window.location.href = 'index-personal.html';
+    }
+}
+
+// Set active tab on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const selectedForm = localStorage.getItem('selectedForm') || 'personal';
+    const tabs = document.querySelectorAll('.account-type-tabs .tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    if (selectedForm === 'personal') {
+        tabs[0].classList.add('active');
+    } else {
+        tabs[1].classList.add('active');
+    }
+});
+</script>
 <script src="assets/script.js"></script>
 
 </body>
