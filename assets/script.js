@@ -60,6 +60,33 @@ showStep(index);
 });
 });
 
+/* ACCOUNT CARD SELECTION */
+const accountCards = document.querySelectorAll('.account-card');
+accountCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+        // Prevent radio button default behavior
+        e.preventDefault();
+        
+        // Get the parent form step
+        const formStep = this.closest('.form-step');
+        if (!formStep) return;
+        
+        // Remove selected class from all cards in this form step
+        formStep.querySelectorAll('.account-card').forEach(c => {
+            c.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked card
+        this.classList.add('selected');
+        
+        // Check the radio button inside       
+        const radio = this.querySelector('input[type="radio"]');
+        if (radio) {
+            radio.checked = true;
+        }
+    });
+});
+
 /* FORM SUBMISSION */
 const bankForm = document.getElementById('bankForm');
 const corporateForm = document.getElementById('corporateForm');
