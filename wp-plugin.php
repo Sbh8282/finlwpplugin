@@ -907,7 +907,7 @@ function bank_application_combined_form() {
 
         <!-- Corporate Form Content Only -->
         <div id="corporate-form-section" class="form-section" style="display:none;">
-            <?php echo do_shortcode('[bank_corporate_form]'); ?>
+            <?php echo corporate_application_form(array('no_container' => true)); ?>
         </div>
     </div>
 
@@ -1264,7 +1264,11 @@ function corporate_application_form($args = array()) {
     </div>
 
     </form>
-    </div>
+    <?php
+    if ( ! $args['no_container'] ) {
+        echo '</div>';
+    }
+    ?>
 
     <?php
     return ob_get_clean();
