@@ -14,6 +14,15 @@ font-family:'DM Sans', Inter, sans-serif;
 	}
 }
 
+.form-section {
+	display: block;
+	width: 100%;
+}
+
+.form-section.active {
+	display: block;
+}
+
 .steps{
 display: flex;
 justify-content: center;

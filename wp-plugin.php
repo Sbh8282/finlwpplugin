@@ -711,10 +711,60 @@ return ob_get_clean();
 
 add_shortcode('bank_application_form','bank_application_form');
 
+// Combined Shortcode for Both Forms
+function bank_application_combined_form() {
+    ob_start();
+    ?>
+    <div class="bank-form-container">
+        <!-- Tab Navigation -->
+        <div class="account-type-tabs">
+            <button class="tab active" id="personal-tab" onclick="switchCombinedForm('personal')">Personal Account</button>
+            <button class="tab" id="corporate-tab" onclick="switchCombinedForm('corporate')">Corporate Account</button>
+        </div>
+
+        <!-- Personal Form Section -->
+        <div id="personal-form-section" class="form-section active">
+            <?php echo do_shortcode('[bank_application_form]'); ?>
+        </div>
+
+        <!-- Corporate Form Section -->
+        <div id="corporate-form-section" class="form-section" style="display:none;">
+            <?php echo do_shortcode('[bank_corporate_form]'); ?>
+        </div>
+    </div>
+
+    <script>
+    function switchCombinedForm(type) {
+        const personalTab = document.getElementById('personal-tab');
+        const corporateTab = document.getElementById('corporate-tab');
+        const personalSection = document.getElementById('personal-form-section');
+        const corporateSection = document.getElementById('corporate-form-section');
+
+        if (type === 'personal') {
+            personalTab.classList.add('active');
+            corporateTab.classList.remove('active');
+            personalSection.style.display = 'block';
+            corporateSection.style.display = 'none';
+        } else {
+            personalTab.classList.remove('active');
+            corporateTab.classList.add('active');
+            personalSection.style.display = 'none';
+            corporateSection.style.display = 'block';
+        }
+    }
+    </script>
+
+    <?php
+    return ob_get_clean();
+}
+
+add_shortcode('bank_application_combined', 'bank_application_combined_form');
+
 add_filter('plugin_row_meta', 'bank_form_plugin_row_meta', 10, 2);
 
 function bank_form_plugin_row_meta($links, $file) {
     if (plugin_basename(__FILE__) == $file) {
+        $links[] = 'Combined Form: <code>[bank_application_combined]</code>';
         $links[] = 'Personal Form: <code>[bank_application_form]</code>';
         $links[] = 'Corporate Form: <code>[bank_corporate_form]</code>';
     }
